@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Room } from 'src/app/shared/models/room.mode';
 
 @Component({
@@ -11,10 +12,16 @@ export class RoomItemComponent implements OnInit {
   @Input()
   public room: Room = {} as Room;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     
+  }
+
+  schedule() {
+    this.router.navigateByUrl(`/schedule/${this.room.id}`);
   }
 
 }

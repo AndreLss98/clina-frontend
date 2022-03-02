@@ -12,6 +12,11 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
     canActivate: [SessionGuard]
+  },
+  {
+    path: 'schedule/:roomId',
+    loadChildren: () => import('./pages/schedule/schedule.module').then(m => m.ScheduleModule),
+    canActivate: [SessionGuard]
   }
 ];
 

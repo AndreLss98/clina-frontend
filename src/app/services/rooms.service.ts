@@ -15,6 +15,7 @@ const periods: Period[] = [
 
 const rooms: Room[] = [
   {
+    id: 1,
     name: 'Nome do consultório - Sala 01',
     city: 'Bela Vista',
     uf: 'SP',
@@ -26,6 +27,7 @@ const rooms: Room[] = [
     ]
   },
   {
+    id: 2,
     name: 'Nome do consultório - Sala 02',
     city: 'Bela Vista',
     uf: 'SP',
@@ -37,6 +39,7 @@ const rooms: Room[] = [
     ]
   },
   {
+    id: 3,
     name: 'Nome do consultório - Sala 03',
     city: 'Bela Vista',
     uf: 'SP',
