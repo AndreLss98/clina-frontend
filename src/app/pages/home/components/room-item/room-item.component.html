@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-grid-list cols="4" rowHeight="2:1">
+    <mat-grid-tile>
+      <img [src]="room.photos[0].url" />
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1">
+      <div fxLayout="column">
+        <h3><b>{{room.name}}</b></h3>
+        <p>Em {{room.city}}, {{room.uf}}</p>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile fxLayout="column">
+      <div fxLayout="column">
+        <p>A partir de</p>
+        <p>
+          <b>{{room.price | currency}}</b>
+          /h
+        </p>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button color="primary">Reservar</button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-card>
