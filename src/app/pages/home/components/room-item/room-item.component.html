@@ -1,15 +1,17 @@
 <mat-card>
-  <mat-grid-list cols="4" rowHeight="2:1">
+  <mat-grid-list cols="4" rowHeight="2:1" gutterSize="5">
     <mat-grid-tile>
       <img [src]="room.photos[0].url" />
     </mat-grid-tile>
+
     <mat-grid-tile colspan="1">
       <div fxLayout="column">
         <h3><b>{{room.name}}</b></h3>
         <p>Em {{room.city}}, {{room.uf}}</p>
       </div>
     </mat-grid-tile>
-    <mat-grid-tile fxLayout="column">
+
+    <mat-grid-tile>
       <div fxLayout="column">
         <p>A partir de</p>
         <p>
@@ -18,6 +20,7 @@
         </p>
       </div>
     </mat-grid-tile>
+
     <mat-grid-tile>
       <button mat-raised-button color="primary" (click)="schedule()">Reservar</button>
     </mat-grid-tile>

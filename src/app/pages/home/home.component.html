@@ -6,47 +6,49 @@
     <mat-icon>keyboard_arrow_down</mat-icon>
   </button>
 </mat-toolbar>
+<div class="container">
 
-<div>
-  <h2>Nossas salas disponíveis agora.</h2>
-  <p fxLayout="row" fxLayoutAlign=" center">
-    <mat-icon>room_outlined</mat-icon>
-    Todas as nossas salas estão localizadas em São Paulo - Bela Vista, rua
-    Itapeva, 490 Sala 68 - CEP: 01332-000
-  </p>
-</div>
-
-<div>
-  <form [formGroup]="filtersForm" fxLayoutGap="1rem">
-    <mat-form-field appearance="outline">
-      <mat-label>Precisa para quais dias?</mat-label>
-      <mat-date-range-input
-        [formGroup]="formFilterPeriod"
-        [rangePicker]="picker"
-      >
-        <input matStartDate formControlName="start" placeholder="Start date" />
-        <input matEndDate formControlName="end" placeholder="End date" />
-      </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Periodos</mat-label>
-      <mat-select formControlName="periodTypes" multiple>
-        <mat-option
-          *ngFor="let period of periods"
-          [value]="period.value"
+  <div>
+    <h2>Nossas salas disponíveis agora.</h2>
+    <p fxLayout="row" fxLayoutAlign=" center">
+      <mat-icon>room_outlined</mat-icon>
+      Todas as nossas salas estão localizadas em São Paulo - Bela Vista, rua
+      Itapeva, 490 Sala 68 - CEP: 01332-000
+    </p>
+  </div>
+  
+  <div>
+    <form [formGroup]="filtersForm" fxLayoutGap="1rem">
+      <mat-form-field appearance="outline">
+        <mat-label>Precisa para quais dias?</mat-label>
+        <mat-date-range-input
+          [formGroup]="formFilterPeriod"
+          [rangePicker]="picker"
         >
-          {{ period.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </form>
-</div>
-
-<div>
-  <app-room-item *ngFor="let room of rooms" [room]="room"></app-room-item>
+          <input matStartDate formControlName="start" placeholder="Start date" />
+          <input matEndDate formControlName="end" placeholder="End date" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Periodos</mat-label>
+        <mat-select formControlName="periodTypes" multiple>
+          <mat-option
+            *ngFor="let period of periods"
+            [value]="period.value"
+          >
+            {{ period.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+  
+  <div>
+    <app-room-item *ngFor="let room of rooms" [room]="room"></app-room-item>
+  </div>
 </div>
 
 <mat-menu #menu="matMenu">
