@@ -20,7 +20,6 @@ export class AuthService {
 
   login(loginDto: LoginDto) {
     const user = users.find(user => user.email === loginDto.email && user.password === loginDto.password);
-    console.log('User from service: ', user)
     return of(user);
   }
 }

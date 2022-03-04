@@ -5,7 +5,8 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Period, RoomsService } from 'src/app/services/rooms.service';
+import { RoomsService } from 'src/app/services/rooms.service';
+import { Period } from 'src/app/shared/models/period.model';
 
 @Injectable({
   providedIn: 'root'

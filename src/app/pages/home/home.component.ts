@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { Period, RoomsService } from 'src/app/services/rooms.service';
+import { RoomsService } from 'src/app/services/rooms.service';
+import { Period } from 'src/app/shared/models/period.model';
 import { Room } from 'src/app/shared/models/room.mode';
 
 @Component({

@@ -1,16 +1,12 @@
-import { Injectable } from '@angular/core';
+import { ErrorHandler, Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
+import { Period } from '../shared/models/period.model';
 import { Room } from '../shared/models/room.mode';
 
-export interface Period {
-  name: string;
-  value: string;
-}
-
 const periods: Period[] = [
-  { name: 'Manhã', value: 'MORNING' },
-  { name: 'Tarde', value: 'AFTERNOON' },
-  { name: 'Noite', value: 'NIGHT' },
+  new Period('Manhã', 'MORNING', 5),
+  new Period('Tarde', 'AFTERNOON', 13),
+  new Period('Noite', 'NIGHT', 21),
 ];
 
 const rooms: Room[] = [
@@ -21,10 +17,16 @@ const rooms: Room[] = [
     uf: 'SP',
     price: 80,
     photos: [
-      { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80' },
-      { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80' },
-      { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80' },
-    ]
+      {
+        url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+      },
+    ],
   },
   {
     id: 2,
@@ -33,10 +35,16 @@ const rooms: Room[] = [
     uf: 'SP',
     price: 80,
     photos: [
-      { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80' },
-      { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80' },
-      { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80' },
-    ]
+      {
+        url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+      },
+    ],
   },
   {
     id: 3,
@@ -45,15 +53,21 @@ const rooms: Room[] = [
     uf: 'SP',
     price: 80,
     photos: [
-      { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80' },
-      { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80' },
-      { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80' },
-    ]
-  }
+      {
+        url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+      },
+    ],
+  },
 ];
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RoomsService {
   constructor() {
@@ -66,5 +80,16 @@ export class RoomsService {
 
   findAll(filters: any) {
     return of(rooms);
+  }
+
+  findById(id: number): Observable<Room> {
+    try {
+      const room = rooms.find((room) => room.id === id);
+
+      if (room) return of(room);
+      throw new ErrorHandler();
+    } catch (error) {
+      throw error;
+    }
   }
 }

@@ -1,3 +1,88 @@
 <mat-toolbar>
+  <button mat-icon-button>
+    <mat-icon>chevron_left</mat-icon>
+  </button>
   <span>Horários disponíveis para escolher</span>
 </mat-toolbar>
+
+<form [formGroup]="scheduleForm" fxLayoutGap="1rem">
+  <mat-form-field appearance="outline">
+    <mat-label>Dia(s) escolhido(s)</mat-label>
+    <mat-date-range-input [formGroup]="formFilterPeriod" [rangePicker]="picker">
+      <input matStartDate formControlName="start" placeholder="Data inicial" />
+      <input matEndDate formControlName="end" placeholder="Data final" />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker (closed)="onDateRangeChange()"></mat-date-range-picker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Periodo do dia</mat-label>
+    <mat-select formControlName="periodTypes" multiple (selectionChange)="onPeriodSelectionChange()">
+      <mat-option *ngFor="let period of periods" [value]="period.value">
+        {{ period.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+
+<div style="max-width: 50vw">
+  <ng-container
+    *ngFor="let date of selectedDays"
+    [ngTemplateOutlet]="daySchedule"
+    [ngTemplateOutletContext]="{ date: date }"
+  >
+  </ng-container>
+</div>
+
+<ng-template #daySchedule let-date="date">
+  <h4>
+    <span>{{ date.date | date: "dd MMMM" }}</span>
+  </h4>
+  <div *ngFor="let period of date.periods" style="margin: 20px 0">
+    <ng-container
+      *ngIf="
+        !scheduleForm['value']['periodTypes']?.length ||
+        scheduleForm['value']['periodTypes'].includes(period.value)
+      "
+    >
+      <h6>
+        No período da - <b>{{ period.name }}</b>
+      </h6>
+      <mat-chip-list multiple="true">
+        <mat-chip *ngFor="let time of period.availableSchedules" [selected]="time.isSelected" (click)="selectTimeForSchedule(time)">{{time.range}}</mat-chip>
+      </mat-chip-list>
+    </ng-container>
+  </div>
+</ng-template>
+
+<mat-card>
+  <mat-card-content>
+    <h4>Valor total: {{ room.price }}/h</h4>
+    <p>{{ room.name }}</p>
+    <h6>Comodidades da sala incluídas</h6>
+    <ul>
+      <li flLayout="row" fxLayoutAlign=" center">
+        <mat-icon>check_circle_outline</mat-icon>
+        <span>Sofá/Divã</span>
+      </li>
+      <li flLayout="row" fxLayoutAlign=" center">
+        <mat-icon>check_circle_outline</mat-icon>
+        <span>Impressora</span>
+      </li>
+      <li flLayout="row" fxLayoutAlign=" center">
+        <mat-icon>check_circle_outline</mat-icon>
+        <span>Lavatório/Pia</span>
+      </li>
+    </ul>
+    <p flLayout="row" fxLayoutAlign=" center">
+      <mat-icon>access_time</mat-icon>
+      <span>Data e horário escolhido</span>
+    </p>
+    <p>{{ formFilterPeriod.value["start"] | date }}</p>
+
+    <button mat-raised-button color="primary" style="width: 100%">
+      Finalizar reserva
+    </button>
+  </mat-card-content>
+</mat-card>
